@@ -4,7 +4,7 @@ from urllib.parse import urljoin
 from bs4 import BeautifulSoup
 from httpx import AsyncClient
 
-from film2subtitle.app.handler.errors import *
+from film2subtitle.app.handler.errors import *  # noqa: F401, F403
 
 if TYPE_CHECKING:
     from httpx import Response
@@ -22,7 +22,7 @@ def _validate_response(response: "Response") -> "Response":
         if err := error_map.get(response.status_code):
             raise err()
         else:
-            raise Film2SubtitleAPIError(
+            raise Film2SubtitleAPIError(  # noqa: F405
                 response.reason_phrase,
                 response.status_code,
             )  # noqa: E501

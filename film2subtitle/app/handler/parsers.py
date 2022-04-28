@@ -119,7 +119,7 @@ class Parser(ABC):
     @abstractmethod
     def parse(self) -> Any:
         """Parse the HTML soup and return the parsed data as a specific model."""
-        raise NotImplemented
+        raise NotImplementedError
 
 
 class LegacySearchParser(Parser):

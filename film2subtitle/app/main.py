@@ -24,6 +24,7 @@ app = FastAPI(
     version=settings.PROJECT_VERSION,
     openapi_url=f"{settings.API_V1_STR}/openapi.json",
     openapi_tags=openapi_tags,
+    docs_url=None,  # Set this to None to serve the Swagger UI at another URL
 )
 
 # Mount the static files

@@ -64,7 +64,7 @@ async def download_page(
     except NotFoundError as e:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Requested download page not found.",
+            detail="Requested download page not found.",
         ) from e
     except InvalidUrlError as e:
         raise HTTPException(
