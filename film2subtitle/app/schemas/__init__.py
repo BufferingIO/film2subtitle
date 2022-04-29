@@ -5,3 +5,4 @@ from .subtitles import (  # isort:skip  # noqa: F401
     SubtitleArticle,
     SubtitleMetadata,
 )
+from .health import HealthCheck  # noqa: F401

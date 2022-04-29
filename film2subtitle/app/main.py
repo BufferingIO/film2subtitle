@@ -6,6 +6,7 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from httpx import RequestError
 
+from film2subtitle.app import schemas
 from film2subtitle.app.api.v1 import api_router as api_v1_router
 from film2subtitle.app.core.config import settings
 from film2subtitle.app.handler import api_handler
@@ -14,6 +15,10 @@ openapi_tags = [
     {
         "name": "Subtitles",
         "description": "Endpoints related to subtitles search and download.",
+    },
+    {
+        "name": "Health",
+        "description": "Endpoints related to health check and status of the service.",
     },
 ]
 
@@ -94,4 +99,18 @@ async def get_docs_v1() -> HTMLResponse:
         openapi_url=f"{settings.API_V1_STR}/openapi.json",
         title=f"{settings.PROJECT_NAME} | Documentation",
         swagger_favicon_url=settings.DOCS_FAVICON_PATH,
+    )
+
+
+# A simple health check endpoint that always returns 200
+@app.get(
+    f"{settings.API_V1_STR}/health",
+    tags=["Health"],
+    response_model=schemas.HealthCheck,
+    response_description="Health check response.",
+)
+async def health_check() -> JSONResponse:
+    """A simple health check endpoint to check the service status."""
+    return JSONResponse(
+        content={"status": "OK"},
     )
