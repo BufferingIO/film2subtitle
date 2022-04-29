@@ -13,12 +13,10 @@ jobs:
       - uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: $HEROKU_APP_NAME
+          heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
           heroku_email: ${{secrets.HEROKU_EMAIL}}
           branch: "dev"
-          healthcheck: https://$HEROKU_APP_NAME.herokuapp.com/api/v1/health
-          delay: 10
-          rollbackonhealthcheckfailed: true
+          healthcheck: https://${{secrets.HEROKU_APP_NAME}}.herokuapp.com/api/v1/health
+          delay: 15
         env:
-          HD_DEBUG: false
-          HEROKU_APP_NAME: ${{secrets.HEROKU_APP_NAME}}
+          HD_DEBUG: False
