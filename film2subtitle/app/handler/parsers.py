@@ -17,6 +17,9 @@ from film2subtitle.app.handler.types import (  # isort:skip
 if TYPE_CHECKING:
     from bs4.element import Tag
 
+    # Since the bs4.element.ResultSet is actually a list of "Tag" objects,
+    # we can just use typing.List instead of bs4.element.ResultSet for type annotations.
+
 METADATA_MAP = {
     "نام": "name",
     "زمان": "duration",
@@ -52,8 +55,8 @@ def _parse_metadata(tag_obj: "Tag") -> Dict[str, Any]:
     """Parse the metadata of a subtitle article."""
     # TODO: Parse metadata in subtitle article header wrapper. (e.g. release date)
     metadata: Dict[str, Any] = {}
-    meta_li = tag_obj.find_all(class_=re.compile("^sub-meta-*"))
-    for li in meta_li:
+    meta_li_tags: List["Tag"] = tag_obj.find_all(class_=re.compile("^sub-meta-*"))
+    for li in meta_li_tags:
         left: Optional["Tag"] = li.find(class_="sub-meta-left")
         right: Optional["Tag"] = li.find(class_="sub-meta-right")
         for side in (left, right):
@@ -84,25 +87,28 @@ def _parse_subtitle_article(tag_obj: "Tag") -> Dict[str, Any]:
 
 def _parse_download_box(download_box: "Tag") -> Dict[str, Any]:
     """Return parsed download box from the download page."""
-    links: Dict[str, Any] = {
-        "type_": "series" if "فصل" in download_box.get_text(strip=True) else "movie",
+    dl: Dict[str, Any] = {
+        "type_": "series" if "فصل" in download_box.text else "movie",
         "links": {},
     }
     for link in download_box.find_all("a"):
         href: str = link.get("href")
-        if links["type_"] == "series":
-            if season_match := re.search(r"[sS]\d+", href):
-                season = links["links"].setdefault(season_match.group(), {})
-                if episode_match := re.search(r"[eE]\d+", href):
+        if dl["type_"] == "series":
+            if season_match := re.search(r"s\d+", href, re.IGNORECASE):
+                season: Dict[str, str] = dl["links"].setdefault(
+                    season_match.group(),
+                    {},  # if the season is not found, create a new dict for it.
+                )
+                if episode_match := re.search(r"e\d+", href, re.IGNORECASE):
                     season[episode_match.group()] = href
                 else:
                     season["all"] = href
+            continue
+        if "trailer" in href.lower():
+            dl["links"]["trailer"] = href
         else:
-            if "trailer" in href.lower():
-                links["links"]["trailer"] = href
-            else:
-                links["links"]["download"] = href
-    return links
+            dl["links"]["download"] = href
+    return dl
 
 
 class Parser(ABC):
@@ -118,7 +124,7 @@ class Parser(ABC):
 
     @abstractmethod
     def parse(self) -> Any:
-        """Parse the HTML soup and return the parsed data as a specific model."""
+        """Parse the HTML soup and return the parsed data as a specific dataclass."""
         raise NotImplementedError
 
 
@@ -132,9 +138,9 @@ class LegacySearchParser(Parser):
 
     def iter_results(self) -> Generator[SubtitleArticle, None, None]:
         """A generator that yields all results from the search."""
-        articles = self._soup.find_all(class_="sub-article-detail")
-        for articles in articles:
-            parsed_dict = _parse_subtitle_article(articles)
+        articles: List["Tag"] = self._soup.find_all(class_="sub-article-detail")
+        for article in articles:
+            parsed_dict = _parse_subtitle_article(article)
             metadata = parsed_dict.pop("metadata")
             yield SubtitleArticle(
                 **parsed_dict,
@@ -175,7 +181,7 @@ class DownloadPageParser(Parser):
     @property
     def articles(self) -> List[SubtitleArticle]:
         """Return the list of subtitle articles as :class:`SubtitleArticle` objects."""
-        articles = self._soup.find_all(class_="sub-article-detail")
+        articles: List["Tag"] = self._soup.find_all(class_="sub-article-detail")
         return [
             SubtitleArticle(**_parse_subtitle_article(article))
             for article in articles
