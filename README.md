@@ -1,13 +1,13 @@
 # Film2Subtitle API
 
-[![Python](https://img.shields.io/badge/Python-3.9+-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.75.0-009688.svg?style=flat&logo=FastAPI&logoColor=white)](https://fastapi.tiangolo.com)
+[![Python](https://img.shields.io/badge/Python-3.9%20|%203.10-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.75.2-009688.svg?style=flat&logo=FastAPI&logoColor=white)](https://fastapi.tiangolo.com)
 ![ci/cd status](https://github.com/IHosseini083/film2subtitle/actions/workflows/main.yml/badge.svg)
 
 ## Introduction 🗣️
 
 It is a REST API for film2subtitle.com website built with Python and [FastAPI](https://fastapi.tiangolo.com) web framework.
-You can search and download the latest persian subtitles for movies/series from film2subtitle.com website by using this API.
+You can search and download the latest persian subtitles for movies/series from film2subtitle.com website using this API.
 
 Please note that this is not an official API from developers of the film2subtitle.com website! It is for educational purposes
 and personal use only (you can extend it to your own needs) and was built using the FastAPI framework to give you the best performance
@@ -31,13 +31,6 @@ Coming soon...
 - [ ] Add support for adding custom headers/cookies to each request.
 - [ ] Add proxy server support to the API handler to prevent the API from being blocked by the website.
 
-## License ©️
-
-This project is licensed under the GNU General Public License v3.0.
-You can find the full license text in [here](LICENSE).
-
-[![License: GPL v3.0](https://img.shields.io/badge/License-GPL%20v3.0-red.svg)](https://www.gnu.org/licenses/gpl-3.0)
-
 ## Contribution 🧑🏻‍💻
 
 If you like this project and want to improve its quality, please consider contributing to it by ***opening an issue*** or ***creating a pull request***.
@@ -45,3 +38,7 @@ If you like this project and want to improve its quality, please consider contri
 ## Contact developer 📮
 
 You can reach-out to me in telegram at [@Pygrammer](https://t.me/Pygrammer).
+
+---
+
+<p align="center"><i>Film2Subtitle API is a <a href="https://github.com/IHosseini083/film2subtitle/blob/main/README.md">GPL v3</a> licensed code.<br/>Designed & built with love.</i><br/>&mdash;❣️&mdash;</p>
