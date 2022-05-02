@@ -2,10 +2,16 @@ import uvicorn
 
 from film2subtitle.app.core.config import settings
 
-if __name__ == "__main__":
+
+def run_uvicorn_server() -> None:
+    """Run the uvicorn server in development environment."""
     uvicorn.run(
-        "film2subtitle.app.main:app",
-        host="0.0.0.0" if not settings.DEBUG else "127.0.0.1",
+        "film2subtitle.app.main:app",  # path to the FastAPI application
+        host="127.0.0.1" if settings.DEBUG else "0.0.0.0",
         port=8000,
         reload=settings.DEBUG,
     )
+
+
+if __name__ == "__main__":
+    run_uvicorn_server()
