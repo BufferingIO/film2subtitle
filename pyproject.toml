@@ -1,0 +1,40 @@
+[tool.poetry]
+name = "film2subtitle"
+version = "1.0.0"
+description = "A REST API for film2subtitle.com website built with Python and FastAPI web framework."
+authors = ["Iliya <IHosseini083@gmail.com>"]
+license = "GPL-3.0-only"
+readme = "README.md"
+repository = "https://github.com/IHosseini083/film2subtitle"
+keywords = [
+    "python",
+    "fastapi",
+    "film2subtitle",
+    "subtitle",
+    "rest-api",
+    "beautifulsoup",
+]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+uvicorn = "^0.17.6"
+fastapi = "^0.75.2"
+lxml = "^4.8.0"
+bs4 = "^0.0.1"
+pre-commit = "^2.18.1"
+httpx = "^0.22.0"
+python-dotenv = "^0.20.0"
+gunicorn = "^20.1.0"
+
+[tool.poetry.dev-dependencies]
+autopep8 = "^1.6.0"
+black = "^22.3.0"
+flake8 = "^4.0.1"
+
+[tool.poetry.scripts]
+# A script to run the development server.
+dev-server = "film2subtitle.__main__:run_uvicorn_server"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
