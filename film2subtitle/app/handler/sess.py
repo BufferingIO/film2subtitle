@@ -4,6 +4,7 @@ from urllib.parse import urljoin
 from bs4 import BeautifulSoup
 from httpx import AsyncClient
 
+# skipcq: PYL-W0614
 from film2subtitle.app.handler.errors import *  # noqa: F401, F403
 
 if TYPE_CHECKING:
@@ -13,19 +14,18 @@ if TYPE_CHECKING:
 def _validate_response(response: "Response") -> "Response":
     """Validate the response status code and raise appropriate errors."""
     error_map = {
-        400: BadRequestError,
-        401: UnauthorizedError,
-        404: NotFoundError,
+        400: BadRequestError,  # noqa: F405
+        401: UnauthorizedError,  # noqa: F405
+        404: NotFoundError,  # noqa: F405
     }
 
     if response.status_code not in (200, 301, 302, 304):
         if err := error_map.get(response.status_code):
             raise err()
-        else:
-            raise Film2SubtitleAPIError(  # noqa: F405
-                response.reason_phrase,
-                response.status_code,
-            )  # noqa: E501
+        raise Film2SubtitleAPIError(  # noqa: F405
+            response.reason_phrase,
+            response.status_code,
+        )  # noqa: E501
     return response
 
 
@@ -54,7 +54,7 @@ class AsyncSession:
     }
     DEFAULT_HEADERS: ClassVar[Dict[str, str]] = {
         "Host": "film2subtitle.com",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:98.0) Gecko/20100101 Firefox/98.0",
+        "User-Agent": "Film2SubtitleAPI/v1",
     }
 
     __slots__ = ("_client", "html_parser")

@@ -1,4 +1,4 @@
-from .subtitles import (  # isort:skip  # noqa: F401
+from .subtitles import (  # isort:skip  # noqa: F401 # skipcq: PY-W2000
     DownloadBox,
     DownloadPage,
     LegacySearchResult,

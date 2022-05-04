@@ -10,6 +10,7 @@ __all__ = [
 class Film2SubtitleAPIError(Exception):
     """Base class for Film2SubtitleAPI errors."""
 
+    # skipcq: PYL-W0231
     def __init__(self, message: str, status_code: int = 500) -> None:
         self.message = message
         self.status_code = status_code

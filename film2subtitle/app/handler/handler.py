@@ -17,15 +17,7 @@ if TYPE_CHECKING:
 
 
 class Film2Subtitle(AsyncSession):
-    """API handler to interact with main features of `film2subtitle.com` website.
-
-    Parameters:
-        html_parser (`str`, optional): The HTML parser to use for parsing the responses as
-        `bs4.BeautifulSoup` objects. Defaults to `lxml`.
-    """
-
-    def __init__(self, html_parser: Optional[str] = None) -> None:
-        super().__init__(html_parser)
+    """API handler to interact with main features of `film2subtitle.com` website."""
 
     async def legacy_search(
         self,

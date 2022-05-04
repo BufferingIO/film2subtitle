@@ -44,7 +44,10 @@ class SubtitleArticle(BaseModel):
         ...,
         title="Article thumbnail",
         description="The URL of the thumbnail of the subtitle article.",
-        example="https://film2subtitle.com/wp-content/uploads/2021/10/دانلود-زیرنویس-فارسی-سریال-Ozark.jpg",
+        example=(
+            "https://film2subtitle.com/wp-content/uploads/"
+            "2021/10/دانلود-زیرنویس-فارسی-سریال-Ozark.jpg"
+        ),
     )
     metadata: SubtitleMetadata = Field(
         ...,
@@ -125,5 +128,8 @@ class DownloadPage(BaseModel):
     download_box: DownloadBox = Field(
         ...,
         title="Download box",
-        description="The download box of the download page containing the subtitle download links.",
+        description=(
+            "The download box of the download page "
+            "containing the subtitle download links."
+        ),
     )
