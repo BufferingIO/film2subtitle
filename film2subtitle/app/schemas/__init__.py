@@ -5,4 +5,4 @@ from .subtitles import (  # isort:skip  # noqa: F401 # skipcq: PY-W2000
     SubtitleArticle,
     SubtitleMetadata,
 )
-from .health import HealthCheck  # noqa: F401
+from .health import HealthCheck  # noqa: F401 # skipcq: PY-W2000

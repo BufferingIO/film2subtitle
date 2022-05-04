@@ -30,10 +30,15 @@ gunicorn = "^20.1.0"
 autopep8 = "^1.6.0"
 black = "^22.3.0"
 flake8 = "^4.0.1"
+isort = "^5.10.1"
 
 [tool.poetry.scripts]
 # A script to run the development server.
 dev-server = "film2subtitle.__main__:run_uvicorn_server"
+
+[tool.isort]
+profile = "black"
+skip_gitignore = true
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
