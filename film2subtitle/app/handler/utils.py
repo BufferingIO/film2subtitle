@@ -8,6 +8,4 @@ HTTP_URL_REGEX = re.compile(
 
 def valid_film2subtitle_url(url: str) -> bool:
     """Return `True` if the given URL is a valid Film2Subtitle URL."""
-    if HTTP_URL_REGEX.match(url) and "film2subtitle.com" in url:
-        return True
-    return False
+    return bool(HTTP_URL_REGEX.match(url) and "film2subtitle.com" in url)

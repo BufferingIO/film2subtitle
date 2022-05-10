@@ -32,9 +32,7 @@ async def legacy_search(
 ) -> LegacySearchResult:
     """Legacy search endpoint for subtitles."""
     empty_result = LegacySearchResult(
-        query=query,
-        page=page,
-        total_pages=1,
+        total_pages=0,
         results=[],
     )
 

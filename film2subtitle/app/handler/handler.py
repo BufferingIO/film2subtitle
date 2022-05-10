@@ -34,13 +34,13 @@ class Film2Subtitle(AsyncSession):
             page (`int`, optional): The page number to search for. Defaults to `1`.
 
         Returns:
-            :class:`LegacySearchResult`: The search result.
+            :class:`LegacySearchResult`: The parsed search result object.
 
         Raises:
-              :class:`NotFoundError`: If the query is not found.
+            If the requested page for :param:`query` is not found, might raise a :class:`NotFoundError`.
         """
         if page and not isinstance(page, int):
-            raise TypeError("page must be an integer")
+            raise TypeError("page number must be an integer")
         _page = abs(page or 1)
         url = f"/page/{_page}/?s={query}" if _page > 1 else f"/?s={query}"
         soup = await self.html(url)

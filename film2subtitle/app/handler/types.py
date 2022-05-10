@@ -45,16 +45,10 @@ class SubtitleArticle:
 # Types used in the legacy search API.
 @dataclass
 class LegacySearchResult:
-    """A list of search results returned by the legacy search endpoint."""
+    """A dataclass containing the results for a legacy search and the number of total pages."""
 
-    query: str
-    page: int
-    next_page: int = field(init=False)
     total_pages: int
     results: List[SubtitleArticle]
-
-    def __post_init__(self) -> None:
-        self.next_page = self.page + 1 if self.page < self.total_pages else 1
 
 
 @dataclass

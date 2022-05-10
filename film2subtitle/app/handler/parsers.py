@@ -137,13 +137,13 @@ class LegacySearchParser(Parser):
         self._page = page
 
     def iter_results(self) -> Generator[SubtitleArticle, None, None]:
-        """A generator that yields all results from the search."""
+        """A generator that yields the results of the legacy search."""
         articles: List["Tag"] = self._soup.find_all(class_="sub-article-detail")
         for article in articles:
-            parsed_dict = _parse_subtitle_article(article)
-            metadata = parsed_dict.pop("metadata")
+            article_dict = _parse_subtitle_article(article)
+            metadata = article_dict.pop("metadata")
             yield SubtitleArticle(
-                **parsed_dict,
+                **article_dict,
                 metadata=SubtitleMetadata(**metadata),
             )
 
@@ -162,8 +162,6 @@ class LegacySearchParser(Parser):
     def parse(self) -> LegacySearchResult:
         """Parse the search results and return a :class:`LegacySearchResult`."""
         return LegacySearchResult(
-            query=self._search_query,
-            page=self._page,
             total_pages=self.total_pages,
             results=[*self.iter_results()],
         )

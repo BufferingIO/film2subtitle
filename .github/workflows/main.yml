@@ -19,9 +19,5 @@ jobs:
           healthcheck: https://${{secrets.HEROKU_APP_NAME}}.herokuapp.com/api/v1/health
           rollbackonhealthcheckfailed: true
           delay: 15
-          # A buildpack to use poetry on Heroku.
-          buildpack: https://github.com/moneymeets/python-poetry-buildpack.git
         env:
           HD_DEBUG: False
-          # Prevent poetry buildpack from creating a `runtime.txt` file.
-          HD_DISABLE_POETRY_CREATE_RUNTIME_FILE: 1

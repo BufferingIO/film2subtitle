@@ -78,22 +78,11 @@ class SubtitleArticle(BaseModel):
 class LegacySearchResult(BaseModel):
     """Represents a legacy search result."""
 
-    query: str = Field(
-        ...,
-        title="Search query",
-        description="The query that was used to search for the subtitle article.",
-    )
-    page: int = Field(
-        ...,
-        title="Search page",
-        description="The page of the search result.",
-        ge=1,
-    )
     total_pages: int = Field(
         ...,
         title="Total search pages",
         description="The total number of pages available for the search query.",
-        ge=1,
+        ge=0,
     )
     results: List[SubtitleArticle] = Field(
         ...,
