@@ -66,7 +66,11 @@ async def http_exception_handler(_, exc: HTTPException) -> JSONResponse:
         "error": ecode_mapping.get(exc.status_code, "UNKNOWN_ERROR"),
         "message": exc.detail,
     }
-    return JSONResponse(content, exc.status_code, exc.headers)
+    return JSONResponse(
+        content=content,
+        status_code=exc.status_code,
+        headers=exc.headers,
+    )
 
 
 @app.exception_handler(RequestError)
