@@ -1,7 +1,7 @@
 # Film2Subtitle API
 
 [![Python](https://img.shields.io/badge/Python-3.9%20|%203.10-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.75.2-009688.svg?style=flat&logo=FastAPI&logoColor=white)](https://fastapi.tiangolo.com)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.77.0-009688.svg?style=flat&logo=FastAPI&logoColor=white)](https://fastapi.tiangolo.com)
 ![ci/cd status](https://github.com/IHosseini083/film2subtitle/actions/workflows/main.yml/badge.svg)
 
 ## Introduction 🗣️

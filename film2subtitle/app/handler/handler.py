@@ -37,7 +37,8 @@ class Film2Subtitle(AsyncSession):
             :class:`LegacySearchResult`: The parsed search result object.
 
         Raises:
-            If the requested page for :param:`query` is not found, might raise a :class:`NotFoundError`.
+            If the requested page for :param:`query` is not found,
+            might raise a :class:`NotFoundError`.
         """
         if page and not isinstance(page, int):
             raise TypeError("page number must be an integer")
