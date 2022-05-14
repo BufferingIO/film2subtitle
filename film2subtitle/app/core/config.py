@@ -1,6 +1,6 @@
 from typing import List, Union
 
-from pydantic import AnyHttpUrl, BaseSettings, validator
+from pydantic import AnyHttpUrl, BaseSettings, EmailStr, validator
 
 
 class Settings(BaseSettings):
@@ -21,6 +21,8 @@ class Settings(BaseSettings):
     DOCS_FAVICON_PATH: str = "/static/img/favicon.png"
     DEBUG: bool = True
     CORS_ORIGINS: List[AnyHttpUrl] = []
+    # # 60 minutes * 24 hours * 1 days = 1 day
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 1
 
     @classmethod
     @validator("CORS_ORIGINS", pre=True)
@@ -38,6 +40,10 @@ class Settings(BaseSettings):
     @validator("DATABASE_URL", pre=True)
     def fix_database_url(cls, v: str) -> str:
         return v.replace("postgres://", "postgresql://", 1)
+
+    FIRST_SUPERUSER: str
+    FIRST_SUPERUSER_EMAIL: EmailStr
+    FIRST_SUPERUSER_PASSWORD: str
 
     class Config:
         env_file = "film2subtitle/.env"

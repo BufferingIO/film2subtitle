@@ -21,3 +21,6 @@ jobs:
           delay: 15
         env:
           HD_DEBUG: False
+          HD_FIRST_SUPERUSER: ${{secrets.FIRST_SUPERUSER}}
+          HD_FIRST_SUPERUSER_EMAIL: ${{secrets.FIRST_SUPERUSER_EMAIL}}
+          HD_FIRST_SUPERUSER_PASSWORD: ${{secrets.FIRST_SUPERUSER_PASSWORD}}
