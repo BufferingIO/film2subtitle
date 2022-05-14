@@ -157,7 +157,7 @@ class LegacySearchParser(Parser):
                 if page_number.text.isdigit()
             ]
             return max(nums)
-        return 0
+        return 1
 
     def parse(self) -> LegacySearchResult:
         """Parse the search results and return a :class:`LegacySearchResult`."""

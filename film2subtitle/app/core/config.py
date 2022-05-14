@@ -31,6 +31,9 @@ class Settings(BaseSettings):
             return v
         raise ValueError(v)
 
+    # Database settings
+    DATABASE_URL: str
+
     class Config:
         env_file = "film2subtitle/.env"
         case_sensitive = True
