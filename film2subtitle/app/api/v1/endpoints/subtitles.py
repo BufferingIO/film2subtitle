@@ -6,7 +6,16 @@ from film2subtitle.app.handler import api_handler
 from film2subtitle.app.handler.errors import InvalidUrlError, NotFoundError
 from film2subtitle.app.handler.types import DownloadPage, LegacySearchResult
 
-router = APIRouter()
+router = APIRouter(
+    responses={
+        400: {
+            "description": "Invalid or missing parameters.",
+        },
+        404: {
+            "description": "The requested page could not be found.",
+        },
+    },
+)
 
 
 @router.get(
