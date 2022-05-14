@@ -34,6 +34,11 @@ class Settings(BaseSettings):
     # Database settings
     DATABASE_URL: str
 
+    @classmethod
+    @validator("DATABASE_URL", pre=True)
+    def fix_database_url(cls, v: str) -> str:
+        return v.replace("postgres://", "postgresql://", 1)
+
     class Config:
         env_file = "film2subtitle/.env"
         case_sensitive = True
