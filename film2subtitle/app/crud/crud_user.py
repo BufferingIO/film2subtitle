@@ -12,10 +12,11 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
     """CRUD operations for User."""
 
     # noinspection PyMethodMayBeStatic
-    def get_by_email(self, db: Session, *, email: str) -> Optional[User]:
+    def get_by_email(self, db: Session, *, email: str) -> Optional[User]:  # PYL-R0201
         return db.query(User).filter(User.email == email).first()
 
     # noinspection PyMethodMayBeStatic
+    # PYL-R0201
     def get_by_username(self, db: Session, *, username: str) -> Optional[User]:
         return db.query(User).filter(User.username == username).first()
 
@@ -62,12 +63,9 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         return user
 
     # noinspection PyMethodMayBeStatic
-    def is_active(self, user: User) -> bool:
+    def is_active(self, user: User) -> bool:  # PYL-R0201
         return user.is_active
 
     # noinspection PyMethodMayBeStatic
-    def is_superuser(self, user: User) -> bool:
+    def is_superuser(self, user: User) -> bool:  # PYL-R0201
         return user.is_superuser
-
-
-user = CRUDUser(User)

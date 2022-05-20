@@ -42,7 +42,7 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         return db_obj
 
     # noinspection PyMethodMayBeStatic
-    def update(
+    def update(  # PYL-R0201
         self,
         db: Session,
         *,
