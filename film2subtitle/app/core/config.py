@@ -26,9 +26,11 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 1
     SECRET_KEY: str = secrets.token_urlsafe(32)
 
-    @classmethod
     @validator("CORS_ORIGINS", pre=True)
-    def assemble_cors_origins(cls, v: Union[str, List[str]]) -> Union[str, List[str]]:
+    def assemble_cors_origins(
+        cls,
+        v: Union[str, List[str]],  # noqa
+    ) -> Union[str, List[str]]:
         if isinstance(v, str) and not v.startswith("["):
             return [i.strip() for i in v.split(",")]
         if isinstance(v, (list, str)):
@@ -38,9 +40,8 @@ class Settings(BaseSettings):
     # Database settings
     DATABASE_URL: str
 
-    @classmethod
     @validator("DATABASE_URL", pre=True)
-    def fix_database_url(cls, v: str) -> str:
+    def fix_database_url(cls, v: str) -> str:  # noqa
         return v.replace("postgres://", "postgresql://", 1)
 
     FIRST_SUPERUSER: str
