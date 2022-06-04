@@ -7,18 +7,28 @@ from fastapi.staticfiles import StaticFiles
 from httpx import RequestError
 
 from film2subtitle.app import schemas
+from film2subtitle.app.api.dependency import get_db
 from film2subtitle.app.api.v1 import api_router as api_v1_router
 from film2subtitle.app.core.config import settings
+from film2subtitle.app.db.init_db import init_db
 from film2subtitle.app.handler import api_handler
 
 openapi_tags = [
     {
         "name": "Subtitles",
-        "description": "Endpoints related to subtitles search and download.",
+        "description": "Search and download subtitles",
     },
     {
         "name": "Health",
-        "description": "Endpoints related to health check and status of the service.",
+        "description": "Simple health check endpoint",
+    },
+    {
+        "name": "Login",
+        "description": "Authenticate and generate access tokens",
+    },
+    {
+        "name": "Users",
+        "description": "User management",
     },
 ]
 
@@ -93,6 +103,13 @@ async def clean_up_on_shutdown() -> None:
     """Clean up the resources before shutdown."""
     # close the api handler session
     await api_handler.close()
+
+
+@app.on_event("startup")
+def on_startup() -> None:
+    """Initialize the resources on startup."""
+    db = next(get_db())
+    init_db(db, create_tables=True)
 
 
 # Override the documentation endpoint to serve a customized version
