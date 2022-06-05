@@ -30,6 +30,7 @@ def get_users(
 def create_user(
     user_in: schemas.UserCreate,
     db: Session = Depends(get_db),
+    _=Depends(get_current_active_superuser),
 ) -> models.User:
     """Create new user in the database."""
     user = crud.user.get_by_username(db, username=user_in.username)
@@ -49,7 +50,7 @@ def get_user_me(user: models.User = Depends(get_current_active_user)) -> models.
     return user
 
 
-@router.patch("/me", response_model=schemas.User, summary="Update current user")
+@router.put("/me", response_model=schemas.User, summary="Update current user")
 def update_user_me(
     db: Session = Depends(get_db),
     password: str = Body(None),
@@ -75,7 +76,7 @@ def get_user_by_id(
     return crud.user.get(db, id_=user_id)
 
 
-@router.patch("/{user_id}", response_model=schemas.User, summary="Update user by ID")
+@router.put("/{user_id}", response_model=schemas.User, summary="Update user by ID")
 def update_user_by_id(
     user_id: int,
     user_in: schemas.UserUpdate,
