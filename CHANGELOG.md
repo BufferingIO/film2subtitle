@@ -4,6 +4,30 @@ All notable changes to the _Film2Subtitle API_ will be documented in this file.
 
 The format used in this document is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## 1.0.3 ()
+
+### Added
+
+- Added a new enum value to `MediaType` to represent `unknown` media type (that the download box is empty).
+
+### Changed
+
+- Changed HTTP method for updating users to `PUT` (`PATCH` is not supported by the API anymore).
+- Now creating users from `/api/v1/users` endpoint is only possible for superusers.
+- Changed the name for `LegacySearchParser`'s `iter_results` method to `iter_articles`.
+- Changed return type hint for `LegacySearchParser.iter_articles` to `Iterator[SubtitleArticle]`.
+- Use `list` class on `LegacySearchParser.iter_articles` iterator instead of unpacking it.
+- Changed the doc-string for `Film2Subtitle.legacy_search` a little to make it more clear.
+- Changed the `type_` attribute of download box to `media_type` and also `SubtitleType` enum class
+to `MediaType`.
+- Changed the enum value `series` to `tv` in `MediaType` enum class.
+
+### Removed
+
+- Removed FUNDING information.
+- Removed unnecessary parameters (`search_query`, `page`) from `LegacySearchParser` initialization process.
+- Removed `typing.Optional` from the `page` parameter of `Film2Subtitle.legacy_search` method and gave it a default value of `1`.
+
 ## 1.0.2 (2022-06-05)
 
 ### Added
@@ -50,4 +74,4 @@ Below packages are newly added to the project:
 ### Removed
 
 - Removed `query` and `page` parameters from legacy search result.
-- Removed poetry buildpack from Heroku deployement workflow.
+- Removed poetry buildpack from Heroku deployment workflow.

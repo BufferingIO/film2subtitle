@@ -4,11 +4,12 @@ from typing import List
 from pydantic import BaseModel, Field, HttpUrl
 
 
-class SubtitleType(str, Enum):
-    """The type of subtitle."""
+class MediaType(str, Enum):
+    """The type of media that the subtitle is for. (e.g. `movie` or `series`)"""
 
-    SERIES = "series"
+    SERIES = "tv"
     MOVIE = "movie"
+    UNKNOWN = "unknown"
 
 
 class SubtitleMetadata(BaseModel):
@@ -94,10 +95,10 @@ class LegacySearchResult(BaseModel):
 class DownloadBox(BaseModel):
     """Represents a download box returned by the downloader API."""
 
-    type_: SubtitleType = Field(
+    media_type: MediaType = Field(
         ...,
-        title="Subtitle type",
-        description="The type of the subtitle (series or movie).",
+        title="Media type",
+        description="The type of media that the subtitle is for.",
     )
     links: dict = Field(
         ...,

@@ -1,10 +1,11 @@
 import re
 from abc import ABC, abstractmethod
-from typing import TYPE_CHECKING, Any, Dict, Generator, List, Optional
+from typing import TYPE_CHECKING, Any, Dict, Iterator, List, Optional
 
 from bs4 import BeautifulSoup
 
 from film2subtitle.app.handler.errors import NotFoundError
+from film2subtitle.app.schemas.subtitles import MediaType
 
 from film2subtitle.app.handler.types import (  # isort:skip
     DownloadBox,
@@ -20,6 +21,7 @@ if TYPE_CHECKING:
     # Since the bs4.element.ResultSet is actually a list of "Tag" objects,
     # we can just use typing.List instead of bs4.element.ResultSet for type annotations.
 
+# Maps persian keywords to corresponding metadata keys used in the subtitle article.
 METADATA_MAP = {
     "نام": "name",
     "زمان": "duration",
@@ -39,8 +41,8 @@ def _metadata_mapper(metadata: Dict[str, Any], key: str, value: str) -> None:
         if k in key:
             if v == "imdb_rating":
                 # The IMDb rating can be a float or an integer.
-                if match := re.search(r"\d+\.?\d*", value):
-                    value = float(match.group())  # type: ignore
+                if rating_match := re.search(r"\d+\.?\d*", value):
+                    value = float(rating_match.group())  # type: ignore
                 else:
                     # If the rating is not found, set it to 0.0
                     value = 0.0  # type: ignore
@@ -85,15 +87,18 @@ def _parse_subtitle_article(tag_obj: "Tag") -> Dict[str, Any]:
     }
 
 
-def _parse_download_box(download_box: "Tag") -> Dict[str, Any]:
+def _parse_download_box(dl_box: "Tag") -> Dict[str, Any]:
     """Return parsed download box from the download page."""
     dl: Dict[str, Any] = {
-        "type_": "series" if "فصل" in download_box.text else "movie",
         "links": {},
+        "media_type": MediaType.UNKNOWN,
     }
-    for link in download_box.find_all("a"):
+    if not dl_box.text:
+        return dl
+    dl["media_type"] = MediaType.SERIES if "فصل" in dl_box.text else MediaType.MOVIE
+    for link in dl_box.find_all("a"):
         href: str = link.get("href")
-        if dl["type_"] == "series":
+        if dl["media_type"] == MediaType.SERIES:
             if season_match := re.search(r"s\d+", href, re.IGNORECASE):
                 season: Dict[str, str] = dl["links"].setdefault(
                     season_match.group(),
@@ -131,13 +136,11 @@ class Parser(ABC):
 class LegacySearchParser(Parser):
     """Parser for the legacy search endpoint."""
 
-    def __init__(self, soup_obj: BeautifulSoup, search_query: str, page: int) -> None:
+    def __init__(self, soup_obj: BeautifulSoup) -> None:
         super().__init__(soup_obj)
-        self._search_query = search_query
-        self._page = page
 
-    def iter_results(self) -> Generator[SubtitleArticle, None, None]:
-        """A generator that yields the results of the legacy search."""
+    def iter_articles(self) -> Iterator[SubtitleArticle]:
+        """Iterate over the subtitle articles parsed from the search results."""
         articles: List["Tag"] = self._soup.find_all(class_="sub-article-detail")
         for article in articles:
             article_dict = _parse_subtitle_article(article)
@@ -163,7 +166,7 @@ class LegacySearchParser(Parser):
         """Parse the search results and return a :class:`LegacySearchResult`."""
         return LegacySearchResult(
             total_pages=self.total_pages,
-            results=[*self.iter_results()],
+            results=list(self.iter_articles()),
         )
 
 

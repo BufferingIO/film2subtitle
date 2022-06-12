@@ -9,7 +9,7 @@ class Settings(BaseSettings):
 
     # FastAPI app settings
     API_V1_STR: str = "/api/v1"
-    PROJECT_VERSION: str = "1.0.2"
+    PROJECT_VERSION: str = "1.0.3"
     PROJECT_NAME: str = "Film2Subtitle API"
     PROJECT_DESCRIPTION: str = (
         "A REST API for the film2subtitle.com website that allows you to "
@@ -28,8 +28,8 @@ class Settings(BaseSettings):
 
     @validator("CORS_ORIGINS", pre=True)
     def assemble_cors_origins(
-        cls,
-        v: Union[str, List[str]],  # noqa
+        cls,  # noqa
+        v: Union[str, List[str]],
     ) -> Union[str, List[str]]:
         if isinstance(v, str) and not v.startswith("["):
             return [i.strip() for i in v.split(",")]

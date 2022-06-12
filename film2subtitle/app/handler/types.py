@@ -9,8 +9,10 @@ __all__ = [
     "DownloadPage",
 ]
 
-
 # Common types used in the API (e.g. legacy search and download page).
+from film2subtitle.app.schemas.subtitles import MediaType
+
+
 @dataclass
 class SubtitleMetadata:
     """The metadata parsed from a subtitle article.
@@ -55,7 +57,7 @@ class LegacySearchResult:
 class DownloadBox:
     """A download box containing links to download a subtitle."""
 
-    type_: str
+    media_type: MediaType
     links: dict
 
 

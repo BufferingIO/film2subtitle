@@ -12,5 +12,5 @@ class Base:
 
     # Create table name automatically from class name
     @declared_attr
-    def __tablename__(cls) -> str:
+    def __tablename__(cls) -> str:  # noqa
         return cls.__name__.lower()

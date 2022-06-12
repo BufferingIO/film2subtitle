@@ -22,16 +22,15 @@ class Film2Subtitle(AsyncSession):
     async def legacy_search(
         self,
         query: str,
-        page: Optional[int] = None,
+        page: int = 1,
     ) -> "LegacySearchResult":
         """
-        Search for a Movie or TV show on `film2subtitle.com` website by web scraping the
-        search results page (known as the legacy search because it is the old search type
-        and in the new version we use JSON API).
+        Search for a Movie or TV show on `film2subtitle.com` website by parsing
+        the html of search results.
 
         Parameters:
             query (`str`): The query to search for.
-            page (`int`, optional): The page number to search for. Defaults to `1`.
+            page (`int`): The page number to search for. Defaults to `1`.
 
         Returns:
             :class:`LegacySearchResult`: The parsed search result object.
@@ -40,13 +39,11 @@ class Film2Subtitle(AsyncSession):
             If the requested page for :param:`query` is not found,
             might raise a :class:`NotFoundError`.
         """
-        if page and not isinstance(page, int):
-            raise TypeError("page number must be an integer")
-        _page = abs(page or 1)
-        url = f"/page/{_page}/?s={query}" if _page > 1 else f"/?s={query}"
+        if not isinstance(page, int) and page < 1:
+            raise ValueError("Page number must be an integer greater than 0.")
+        url = f"/page/{page}/?s={query}" if page > 1 else f"/?s={query}"
         soup = await self.html(url)
-        parser = LegacySearchParser(soup, query, _page)
-        return parser.parse()
+        return LegacySearchParser(soup).parse()
 
     async def download_page(self, url: str) -> "DownloadPage":
         """Get the download page of a subtitle.
@@ -67,5 +64,4 @@ class Film2Subtitle(AsyncSession):
                 url=url,
             )
         soup = await self.html(url)
-        parser = DownloadPageParser(soup)
-        return parser.parse()
+        return DownloadPageParser(soup).parse()
