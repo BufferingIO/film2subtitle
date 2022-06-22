@@ -12,7 +12,9 @@ from film2subtitle.app.core import security
 from film2subtitle.app.core.config import settings
 from film2subtitle.app.db.session import SessionLocal
 
-oauth2 = OAuth2PasswordBearer(tokenUrl=f"{settings.API_V1_STR}/login/access-token")
+oauth2 = OAuth2PasswordBearer(
+    tokenUrl=f"/api/{settings.API_V1_STR}/auth/access-token",
+)
 
 
 def get_db() -> Generator[Session, None, None]:

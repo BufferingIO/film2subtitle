@@ -23,3 +23,6 @@ venv/
 # database
 *.db
 *.sqlite3
+
+# Poetry lock
+poetry.lock

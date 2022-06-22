@@ -6,9 +6,8 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from httpx import RequestError
 
-from film2subtitle.app import schemas
+from film2subtitle.app.api import router as api_router
 from film2subtitle.app.api.dependency import get_db
-from film2subtitle.app.api.v1 import api_router as api_v1_router
 from film2subtitle.app.core.config import settings
 from film2subtitle.app.db.init_db import init_db
 from film2subtitle.app.handler import api_handler
@@ -23,7 +22,7 @@ openapi_tags = [
         "description": "Simple health check endpoint",
     },
     {
-        "name": "Login",
+        "name": "Auth",
         "description": "Authenticate and generate access tokens",
     },
     {
@@ -37,7 +36,7 @@ app = FastAPI(
     title=settings.PROJECT_NAME,
     description=settings.PROJECT_DESCRIPTION,
     version=settings.PROJECT_VERSION,
-    openapi_url=f"{settings.API_V1_STR}/openapi.json",
+    openapi_url=f"/api/{settings.API_V1_STR}/openapi.json",
     openapi_tags=openapi_tags,
     docs_url=None,  # Set this to None to serve the Swagger UI at another URL
 )
@@ -54,8 +53,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# add the version 1 API router to the app
-app.include_router(api_v1_router, prefix=settings.API_V1_STR)
+# add the API router
+app.include_router(api_router)
 
 
 # add a custom error handler for 'HTTPException's
@@ -113,25 +112,11 @@ def on_startup() -> None:
 
 
 # Override the documentation endpoint to serve a customized version
-@app.get(f"{settings.API_V1_STR}/docs", include_in_schema=False)
+@app.get(f"/api/{settings.API_V1_STR}/docs", include_in_schema=False)
 async def get_docs_v1() -> HTMLResponse:
     """A custom route to override the default swagger UI for the v1 API."""
     return get_swagger_ui_html(
-        openapi_url=f"{settings.API_V1_STR}/openapi.json",
+        openapi_url=f"/api/{settings.API_V1_STR}/openapi.json",
         title=f"{settings.PROJECT_NAME} | Documentation",
         swagger_favicon_url=settings.DOCS_FAVICON_PATH,
-    )
-
-
-# A simple health check endpoint that always returns 200
-@app.get(
-    f"{settings.API_V1_STR}/health",
-    tags=["Health"],
-    response_model=schemas.HealthCheck,
-    response_description="Health check response.",
-)
-async def health_check() -> JSONResponse:
-    """A simple health check endpoint to check the service status."""
-    return JSONResponse(
-        content={"status": "OK"},
     )
