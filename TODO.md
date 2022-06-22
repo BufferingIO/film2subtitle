@@ -25,3 +25,4 @@ I put future plans for this project in this file.
 - [ ] Add internal logging system.
 - [ ] Add support for mailing system.
 - [ ] Dockerize the project.
+- [ ] Add database migration via Alembic.

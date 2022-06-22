@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "film2subtitle"
-version = "1.0.3"
+version = "1.0.4"
 description = "A REST API for film2subtitle.com website built with Python and FastAPI web framework."
 authors = ["Iliya <IHosseini083@gmail.com>"]
 license = "GPL-3.0-only"
@@ -9,7 +9,6 @@ repository = "https://github.com/IHosseini083/film2subtitle"
 keywords = [
     "python",
     "fastapi",
-    "film2subtitle",
     "subtitle",
     "rest-api",
     "beautifulsoup",

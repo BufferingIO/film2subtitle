@@ -8,8 +8,8 @@ class Settings(BaseSettings):
     """Settings and configuration for the application."""
 
     # FastAPI app settings
-    API_V1_STR: str = "/api/v1"
-    PROJECT_VERSION: str = "1.0.3"
+    API_V1_STR: str = "v1"
+    PROJECT_VERSION: str = "1.0.4"
     PROJECT_NAME: str = "Film2Subtitle API"
     PROJECT_DESCRIPTION: str = (
         "A REST API for the film2subtitle.com website that allows you to "

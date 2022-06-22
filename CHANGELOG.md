@@ -4,6 +4,25 @@ All notable changes to the _Film2Subtitle API_ will be documented in this file.
 
 The format used in this document is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## 1.0.4 (2022-06-22)
+
+### Added
+
+- Added a new router for APIs and included API v1 in it.
+- Added new TODOs.
+
+### Changed
+
+- Separated health check endpoint from API v1. Now it's available at `/api/health/`.
+- Changed the mechanism of health check endpoint and now instead of simply returning `OK`
+as the status, we first try to query the database and if everything works, we return `available`
+for service status, otherwise we return `unavailable`.
+- Changed the name of `/login/` endpoint to `/auth/` for API v1.
+
+### Removed
+
+- Removed the `poetry.lock` file from repository.
+
 ## 1.0.3 (2022-06-12)
 
 ### Added
