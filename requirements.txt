@@ -19,7 +19,7 @@ filelock==3.6.0; python_version >= "3.7" and python_full_version < "3.0.0" or py
 greenlet==1.1.2; python_version >= "3" and python_full_version < "3.0.0" and (platform_machine == "aarch64" or platform_machine == "ppc64le" or platform_machine == "x86_64" or platform_machine == "amd64" or platform_machine == "AMD64" or platform_machine == "win32" or platform_machine == "WIN32") and (python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.6.0") or python_version >= "3" and (platform_machine == "aarch64" or platform_machine == "ppc64le" or platform_machine == "x86_64" or platform_machine == "amd64" or platform_machine == "AMD64" or platform_machine == "win32" or platform_machine == "WIN32") and (python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.6.0") and python_full_version >= "3.5.0"
 gunicorn==20.1.0; python_version >= "3.5"
 h11==0.12.0; python_version >= "3.7"
-httpcore==0.14.7; python_version >= "3.6"
+httpcore==0.15.0; python_version >= "3.6"
 httpx==0.22.0; python_version >= "3.6"
 identify==2.5.0; python_version >= "3.7"
 idna==3.3; python_full_version >= "3.6.2" and python_version >= "3.6"
@@ -31,7 +31,7 @@ pre-commit==2.18.1; python_version >= "3.7"
 psycopg2==2.9.3; python_version >= "3.6"
 pyasn1==0.4.8; python_version >= "3.6" and python_version < "4"
 pycparser==2.21
-pydantic==1.9.0; python_full_version >= "3.6.1"
+pydantic==1.9.1; python_full_version >= "3.6.1"
 python-dotenv==0.20.0; python_version >= "3.5"
 python-jose==3.3.0
 python-multipart==0.0.5
