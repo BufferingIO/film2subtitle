@@ -24,7 +24,7 @@ httpx==0.22.0; python_version >= "3.6"
 identify==2.5.0; python_version >= "3.7"
 idna==3.3; python_full_version >= "3.6.2" and python_version >= "3.6"
 lxml==4.8.0; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.5.0")
-nodeenv==1.6.0; python_version >= "3.7"
+nodeenv==1.7.0; python_version >= "3.7"
 passlib==1.7.4
 platformdirs==2.5.2; python_version >= "3.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version >= "3.7"
 pre-commit==2.20.0; python_version >= "3.7"
