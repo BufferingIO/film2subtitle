@@ -1,4 +1,4 @@
-anyio==3.5.0; python_version >= "3.6" and python_full_version >= "3.6.2"
+anyio==3.6.1; python_version >= "3.6" and python_full_version >= "3.6.2"
 asgiref==3.5.1; python_version >= "3.7"
 bcrypt==3.2.2; python_version >= "3.6"
 beautifulsoup4==4.11.1; python_full_version >= "3.6.0"
