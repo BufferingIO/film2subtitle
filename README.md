@@ -4,7 +4,6 @@
 <!-- First row: -->
 [![Python](https://img.shields.io/badge/Python-3.9%20|%203.10-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.77.0-009688.svg?style=flat&logo=FastAPI&logoColor=white)](https://fastapi.tiangolo.com)
-![ci/cd status](https://github.com/IHosseini083/film2subtitle/actions/workflows/main.yml/badge.svg)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white&style=flat)](https://github.com/pre-commit/pre-commit)
 <br>
 <!-- Second row: -->
