@@ -31,10 +31,6 @@ Coming soon...
 
 If you like this project and want to improve its quality, please consider contributing to it by ***opening an issue*** or ***creating a pull request***.
 
-## Contact developer 📮
-
-You can reach-out to me in telegram at [@Pygrammer](https://t.me/Pygrammer).
-
 ---
 
 <p align="center"><i>Film2Subtitle API is a <a href="https://github.com/IHosseini083/film2subtitle/blob/main/README.md">GPL v3</a> licensed code.<br/>Designed & built with love.</i><br/>—❣️—</p>
