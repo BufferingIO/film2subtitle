@@ -17,7 +17,7 @@ keywords = [
 [tool.poetry.dependencies]
 python = "^3.9"
 uvicorn = "^0.17.6"
-fastapi = "^0.77.1"
+fastapi = "^0.89.0"
 lxml = "^4.8.0"
 bs4 = "^0.0.1"
 pre-commit = "^2.18.1"
